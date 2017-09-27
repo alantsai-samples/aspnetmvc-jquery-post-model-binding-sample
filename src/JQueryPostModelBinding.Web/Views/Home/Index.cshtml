@@ -1,4 +1,4 @@
-﻿
+﻿@model JQueryPostModelBinding.Web.Models.FormPostModel
 @{
     Layout = null;
 }
@@ -12,6 +12,18 @@
 </head>
 <body>
     <div> 
+        @using(Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "postForm"}))
+        {
+            <div>
+                @Html.LabelFor(x => x.Title)
+                @Html.EditorFor(x => x.Title)
+            </div>
+            <div>
+                @Html.LabelFor(x => x.Content)
+                @Html.EditorFor(x => x.Content)
+            </div>
+            <input type="submit" value="送出" />
+        }
     </div>
 </body>
 </html>
