@@ -14,5 +14,11 @@ namespace JQueryPostModelBinding.Web.Controllers
         {
             return View(model);
         }
+
+        [HttpPost]
+        public ActionResult JqueryPost(FormPostModel model)
+        {
+            return PartialView(model);
+        }
     }
 }
