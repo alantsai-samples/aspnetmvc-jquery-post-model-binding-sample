@@ -22,8 +22,29 @@
                 @Html.LabelFor(x => x.Content)
                 @Html.EditorFor(x => x.Content)
             </div>
-            <input type="submit" value="送出" />
+            <input type="submit" value="Post送出" />
+            <input id="btnSubmitUsingJqueryPost" type="submit" value="JqueryPost - serialize 送出" />
         }
     </div>
+    <div>
+        <h3>送出返回的資料</h3>
+        <div id="divResult"></div>
+    </div>
+    <script src="~/Scripts/jquery-3.2.1.js"></script>
+    <script>
+        $(function () {
+            $("#btnSubmitUsingJqueryPost").click(function () {
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("JqueryPost")",
+                    data: $("#postForm").serialize(),
+                    success: function (result) {
+                        $("#divResult").html(result);
+                    }
+                })
+                return false;
+            })
+        })
+    </script>
 </body>
 </html>
