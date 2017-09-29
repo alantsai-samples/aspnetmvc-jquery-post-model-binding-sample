@@ -39,12 +39,17 @@
     <script>
         $(function () {
             $("#btnSubmitUsingJqueryPost").click(function () {
+                $("#divResult").html("");
+                var btnName = $(this).val();
                 $.ajax({
                     type: "POST",
                     url: "@Url.Action("JqueryPost")",
                     data: $("#postForm").serialize(),
                     success: function (result) {
-                        $("#divResult").html(result);
+                        $("#divResult").html(btnName + result);
+                    },
+                    error: function () {
+                        alert("出錯")
                     }
                 })
                 return false;
@@ -54,6 +59,8 @@
     <script>
         $(function () {
             $("#btnSubmitUsingJqueryPostObject").click(function () {
+                $("#divResult").html("");
+                var btnName = $(this).val();
                 var data = {};
                 data.Title = $("#Title").val();
                 data.Content = $("#Content").val();
@@ -63,7 +70,10 @@
                     url: "@Url.Action("JqueryPost")",
                     data: data,
                     success: function (result) {
-                        $("#divResult").html(result);
+                        $("#divResult").html(btnName + result);
+                    },
+                    error: function () {
+                        alert("出錯")
                     }
                 })
                 return false;
