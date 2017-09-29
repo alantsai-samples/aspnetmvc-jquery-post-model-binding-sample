@@ -35,6 +35,7 @@
             <input type="submit" value="Post送出" />
             <input id="btnSubmitUsingJqueryPost" type="submit" value="JqueryPost - serialize 送出" />
             <input id="btnSubmitUsingJqueryPostObject" type="submit" value="JqueryPost - object 送出" />
+            <input id="btnSubmitUsingJqueryPostFormData" type="submit" value="JqueryPost - FormData 送出" />
         }
     </div>
     <div>
@@ -104,6 +105,30 @@
                     url: "@Url.Action("JqueryPost")",
                     data: JSON.stringify(data),
                     contentType: "application/json",
+                    success: function (result) {
+                        $("#divResult").html(btnName + result);
+                    },
+                    error: function () {
+                        alert("出錯")
+                    }
+                })
+                return false;
+            })
+        })
+    </script>
+    <script>
+        $(function () {
+            $("#btnSubmitUsingJqueryPostFormData").click(function () {
+                $("#divResult").html("");
+                var btnName = $(this).val();
+                var data = new FormData($("#postForm")[0]);
+
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("JqueryPost")",
+                    data: data,
+                    processData: false,
+                    contentType: false,
                     success: function (result) {
                         $("#divResult").html(btnName + result);
                     },
