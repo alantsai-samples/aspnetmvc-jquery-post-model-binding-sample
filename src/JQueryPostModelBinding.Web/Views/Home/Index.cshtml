@@ -68,7 +68,8 @@
                 $.ajax({
                     type: "POST",
                     url: "@Url.Action("JqueryPost")",
-                    data: data,
+                    data: JSON.stringify(data),
+                    contentType: "application/json",
                     success: function (result) {
                         $("#divResult").html(btnName + result);
                     },
