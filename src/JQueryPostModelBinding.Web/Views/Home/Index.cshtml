@@ -61,9 +61,9 @@
             $("#btnSubmitUsingJqueryPostObject").click(function () {
                 $("#divResult").html("");
                 var btnName = $(this).val();
-                var data = {};
-                data.Title = $("#Title").val();
-                data.Content = $("#Content").val();
+                var data = [];
+                data.push({ Title: $("input[name='[0].Title']").val(), Content: $("input[name='[0].Content']").val() });
+                data.push({ Title: $("input[name='[1].Title']").val(), Content: $("input[name='[1].Content']").val() });
 
                 $.ajax({
                     type: "POST",
