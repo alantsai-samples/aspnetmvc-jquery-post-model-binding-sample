@@ -12,7 +12,7 @@
 </head>
 <body>
     <div> 
-        @using(Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "postForm"}))
+        @using(Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "postForm", enctype = "multipart/form-data" }))
         {
             for (int i = 0; i < Model.Count(); i++)
             {
@@ -24,16 +24,51 @@
                 @Html.LabelFor(x => Model[i].Content) @i
                 @Html.EditorFor(x => Model[i].Content)
             </div>
+            <div>
+                @Html.LabelFor(x => Model[i].File) @i
+                <input name="@Html.NameFor(x => Model[i].File)" type="file" />
+            </div>
+
+            <br />
             }
 
             <input type="submit" value="Post送出" />
             <input id="btnSubmitUsingJqueryPost" type="submit" value="JqueryPost - serialize 送出" />
             <input id="btnSubmitUsingJqueryPostObject" type="submit" value="JqueryPost - object 送出" />
+            <input id="btnSubmitUsingJqueryPostFormData" type="submit" value="JqueryPost - FormData 送出" />
         }
     </div>
     <div>
         <h3>送出返回的資料</h3>
-        <div id="divResult"></div>
+        <div id="divResult">
+            @if (IsPost)
+            {
+            for (int i = 0; i < Model.Count; i++)
+            {
+                <div>
+                    @Html.LabelFor(x => Model[i].Title) @i
+                    <strong>
+
+                        @Html.DisplayFor(x => Model[i].Title)
+                    </strong>
+                </div>
+                <div>
+                    @Html.LabelFor(x => Model[i].Content) @i
+                    <strong>
+                        @Html.DisplayFor(x => Model[i].Content)
+                    </strong>
+                </div>
+                <div>
+                    @Html.LabelFor(x => Model[i].File) @i
+                    <strong>
+                        @Model[i].File.FileName
+                    </strong>
+                </div>
+
+                <br />
+                }
+            }
+        </div>
     </div>
     <script src="~/Scripts/jquery-3.2.1.js"></script>
     <script>
@@ -70,6 +105,30 @@
                     url: "@Url.Action("JqueryPost")",
                     data: JSON.stringify(data),
                     contentType: "application/json",
+                    success: function (result) {
+                        $("#divResult").html(btnName + result);
+                    },
+                    error: function () {
+                        alert("出錯")
+                    }
+                })
+                return false;
+            })
+        })
+    </script>
+    <script>
+        $(function () {
+            $("#btnSubmitUsingJqueryPostFormData").click(function () {
+                $("#divResult").html("");
+                var btnName = $(this).val();
+                var data = new FormData($("#postForm")[0]);
+
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("JqueryPost")",
+                    data: data,
+                    processData: false,
+                    contentType: false,
                     success: function (result) {
                         $("#divResult").html(btnName + result);
                     },

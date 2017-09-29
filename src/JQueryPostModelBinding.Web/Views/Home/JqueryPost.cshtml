@@ -15,4 +15,10 @@
             @Html.DisplayFor(x => Model[i].Content)
         </strong>
     </div>
+    <div>
+        @Html.LabelFor(x => Model[i].File) @i
+        <strong>
+            @(Model[i]?.File?.FileName)
+        </strong>
+    </div>
 }
