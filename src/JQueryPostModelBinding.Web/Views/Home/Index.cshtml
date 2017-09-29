@@ -1,4 +1,4 @@
-﻿@model JQueryPostModelBinding.Web.Models.FormPostModel
+﻿@model  List<JQueryPostModelBinding.Web.Models.FormPostModel>
 @{
     Layout = null;
 }
@@ -14,16 +14,21 @@
     <div> 
         @using(Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "postForm"}))
         {
+            for (int i = 0; i < Model.Count(); i++)
+            {
             <div>
-                @Html.LabelFor(x => x.Title)
-                @Html.EditorFor(x => x.Title)
+                @Html.LabelFor(x => Model[i].Title) @i
+                @Html.EditorFor(x => Model[i].Title)
             </div>
             <div>
-                @Html.LabelFor(x => x.Content)
-                @Html.EditorFor(x => x.Content)
+                @Html.LabelFor(x => Model[i].Content) @i
+                @Html.EditorFor(x => Model[i].Content)
             </div>
+            }
+
             <input type="submit" value="Post送出" />
             <input id="btnSubmitUsingJqueryPost" type="submit" value="JqueryPost - serialize 送出" />
+            <input id="btnSubmitUsingJqueryPostObject" type="submit" value="JqueryPost - object 送出" />
         }
     </div>
     <div>
@@ -34,12 +39,42 @@
     <script>
         $(function () {
             $("#btnSubmitUsingJqueryPost").click(function () {
+                $("#divResult").html("");
+                var btnName = $(this).val();
                 $.ajax({
                     type: "POST",
                     url: "@Url.Action("JqueryPost")",
                     data: $("#postForm").serialize(),
                     success: function (result) {
-                        $("#divResult").html(result);
+                        $("#divResult").html(btnName + result);
+                    },
+                    error: function () {
+                        alert("出錯")
+                    }
+                })
+                return false;
+            })
+        })
+    </script>
+    <script>
+        $(function () {
+            $("#btnSubmitUsingJqueryPostObject").click(function () {
+                $("#divResult").html("");
+                var btnName = $(this).val();
+                var data = [];
+                data.push({ Title: $("input[name='[0].Title']").val(), Content: $("input[name='[0].Content']").val() });
+                data.push({ Title: $("input[name='[1].Title']").val(), Content: $("input[name='[1].Content']").val() });
+
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("JqueryPost")",
+                    data: JSON.stringify(data),
+                    contentType: "application/json",
+                    success: function (result) {
+                        $("#divResult").html(btnName + result);
+                    },
+                    error: function () {
+                        alert("出錯")
                     }
                 })
                 return false;
