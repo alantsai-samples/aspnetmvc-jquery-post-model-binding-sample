@@ -1,4 +1,4 @@
-﻿@model JQueryPostModelBinding.Web.Models.FormPostModel
+﻿@model  List<JQueryPostModelBinding.Web.Models.FormPostModel>
 @{
     Layout = null;
 }
@@ -14,14 +14,18 @@
     <div> 
         @using(Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "postForm"}))
         {
+            for (int i = 0; i < Model.Count(); i++)
+            {
             <div>
-                @Html.LabelFor(x => x.Title)
-                @Html.EditorFor(x => x.Title)
+                @Html.LabelFor(x => Model[i].Title) @i
+                @Html.EditorFor(x => Model[i].Title)
             </div>
             <div>
-                @Html.LabelFor(x => x.Content)
-                @Html.EditorFor(x => x.Content)
+                @Html.LabelFor(x => Model[i].Content) @i
+                @Html.EditorFor(x => Model[i].Content)
             </div>
+            }
+
             <input type="submit" value="Post送出" />
             <input id="btnSubmitUsingJqueryPost" type="submit" value="JqueryPost - serialize 送出" />
             <input id="btnSubmitUsingJqueryPostObject" type="submit" value="JqueryPost - object 送出" />

@@ -1,13 +1,18 @@
-﻿@model JQueryPostModelBinding.Web.Models.FormPostModel
-<div>
-    @Html.LabelFor(x => x.Title):
-    <strong>
-    @Html.DisplayFor(x => x.Title)
-    </strong>
-</div>
-<div>
-    @Html.LabelFor(x => x.Content):
-    <strong>
-    @Html.DisplayFor(x => x.Content)
-    </strong>
-</div>
+﻿@model List<JQueryPostModelBinding.Web.Models.FormPostModel>
+
+@for (int i = 0; i < Model.Count; i++)
+{
+    <div>
+        @Html.LabelFor(x => Model[i].Title) @i
+        <strong>
+
+            @Html.DisplayFor(x => Model[i].Title)
+        </strong>
+    </div>
+    <div>
+        @Html.LabelFor(x => Model[i].Content) @i
+        <strong>
+            @Html.DisplayFor(x => Model[i].Content)
+        </strong>
+    </div>
+}
