@@ -24,6 +24,7 @@
             </div>
             <input type="submit" value="Post送出" />
             <input id="btnSubmitUsingJqueryPost" type="submit" value="JqueryPost - serialize 送出" />
+            <input id="btnSubmitUsingJqueryPostObject" type="submit" value="JqueryPost - object 送出" />
         }
     </div>
     <div>
@@ -38,6 +39,25 @@
                     type: "POST",
                     url: "@Url.Action("JqueryPost")",
                     data: $("#postForm").serialize(),
+                    success: function (result) {
+                        $("#divResult").html(result);
+                    }
+                })
+                return false;
+            })
+        })
+    </script>
+    <script>
+        $(function () {
+            $("#btnSubmitUsingJqueryPostObject").click(function () {
+                var data = {};
+                data.Title = $("#Title").val();
+                data.Content = $("#Content").val();
+
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("JqueryPost")",
+                    data: data,
                     success: function (result) {
                         $("#divResult").html(result);
                     }
