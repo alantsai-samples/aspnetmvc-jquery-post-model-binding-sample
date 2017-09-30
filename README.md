@@ -9,7 +9,7 @@
 
 ## 幫助 (support)
 
-如果有任何問題，可以透過[開issue](https://github.com/alantsai/mhat-common-boilerplate-repo/issues/new) 或者 可以在 [部落格文章](https://gitter.im/alantsai/mhat-common-boilerplate-repo?utm_source=share-link&utm_medium=link&utm_campaign=share-link)上面發問。
+如果有任何問題，可以透過[開issue](https://github.com/alantsai/mhat-common-boilerplate-repo/issues/new) 或者 可以在 [部落格文章](http://to.alantsai.net/20170929-blog)上面發問。
 
 ## 參與修改 (Contributing)
 

@@ -4,7 +4,7 @@
 
 更新日誌的格式將會基於 [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
-## [1.0.0] - 2017-07-23
+## [1.0.0] - 2017-09-29
 ### Added
 - 專案結構資料夾（build、doc、src、tools）
 - `README.md`
@@ -13,3 +13,4 @@
 - `CHANGELOG.md`
 - `.gitignore`
 - `.gitattributes`
+- 範例程式碼，包括三種不同的情境
